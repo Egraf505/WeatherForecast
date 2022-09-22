@@ -20,6 +20,7 @@ namespace WeatherForecast
             GetCurrentLocation();
         }
 
+
         async Task GetCurrentLocation()
         {
             try
@@ -30,12 +31,12 @@ namespace WeatherForecast
 
                 if (location != null)
                 {
-                    this.Content = new Label() { Text = location.Latitude + " " + location.Longitude };
+                    await DisplayAlert("Успех", location.Latitude + " " + location.Longitude, "Ок");
                 }
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", ex.Message, "Ok");              
+                await DisplayAlert("Error", ex.Message, "Ok");              
             }
         }
 

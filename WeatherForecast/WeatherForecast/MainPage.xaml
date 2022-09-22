@@ -1,24 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WeatherForecast.MainPage">
+             x:Class="WeatherForecast.MainPage"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
 
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+    <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+        <StackLayout Background="#DBE2EF">
+            <yummy:PancakeView BackgroundColor="#3F72AF" Padding="24" CornerRadius="0 0 10 10">
+                <StackLayout Orientation="Vertical">
+                    
+                    <Label x:Name="CityL" Text="Белгород" TextColor="#F9F7F7" FontSize="24" FontFamily="Montserrat-Light" HorizontalOptions="CenterAndExpand"/>
+
+                    <StackLayout Orientation="Horizontal" Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                        <Label x:Name="DegreesL" Text="+10" TextColor="#F9F7F7" FontSize="40" FontFamily="Montserrat-Light"/>
+                        <Image/>
+                    </StackLayout>
+
+                    <Label x:Name="WeatherLikeL" FontSize="14" Text="Ощущается как +5" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+
+                    <ScrollView Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" x:Name="WeatherHoursStack">
+
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </yummy:PancakeView>
+
+            <yummy:PancakeView Padding="24" CornerRadius="10 10 0 0" BackgroundColor="#3F72AF" VerticalOptions="FillAndExpand">
+                <Label Text="Прогноз на 10 дней" TextColor="#F9F7F7" FontSize="20"/>
+            </yummy:PancakeView>
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>
