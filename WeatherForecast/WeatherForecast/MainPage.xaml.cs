@@ -13,15 +13,20 @@ namespace WeatherForecast
     public partial class MainPage : ContentPage
     {
         CancellationTokenSource cts;
+
+        Location _location;
+
         public MainPage()
-        {
+        {            
             InitializeComponent();
 
-            GetCurrentLocation();
+            _location = Task.Run(() => GetCurrentLocation()).Result;
+
+            DisplayAlert("Успех", _location.Latitude + " " + _location.Longitude,"Ок");
         }
 
 
-        async Task GetCurrentLocation()
+        async Task<Location> GetCurrentLocation()
         {
             try
             {
@@ -31,12 +36,15 @@ namespace WeatherForecast
 
                 if (location != null)
                 {
-                    await DisplayAlert("Успех", location.Latitude + " " + location.Longitude, "Ок");
+                    return location;
                 }
+
+                return null;
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "Ok");              
+                await DisplayAlert("Error", ex.Message, "Ok");
+                return null;
             }
         }
 
