@@ -5,7 +5,8 @@ using System.Text;
 namespace WeatherForecast.Core.YandexApiCore
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class Root
+
+    public class YandexAPI
     {
         public int now { get; set; }
         public DateTime now_dt { get; set; }
@@ -18,9 +19,9 @@ namespace WeatherForecast.Core.YandexApiCore
 
     public class AccumPrec
     {
-        public double _3 { get; set; }
-        public int _1 { get; set; }
         public double _7 { get; set; }
+        public int _1 { get; set; }
+        public double _3 { get; set; }
     }
 
     public class Biomet
@@ -137,7 +138,7 @@ namespace WeatherForecast.Core.YandexApiCore
         public int prec_prob { get; set; }
         public double prec_strength { get; set; }
         public bool is_thunder { get; set; }
-        public int wind_speed { get; set; }
+        public double wind_speed { get; set; }
         public string wind_dir { get; set; }
         public int pressure_mm { get; set; }
         public int pressure_pa { get; set; }
@@ -314,18 +315,18 @@ namespace WeatherForecast.Core.YandexApiCore
     public class Parts
     {
         public DayShort day_short { get; set; }
-        public NightShort night_short { get; set; }
-        public Morning morning { get; set; }
-        public Day day { get; set; }
         public Night night { get; set; }
+        public Morning morning { get; set; }
         public Evening evening { get; set; }
+        public Day day { get; set; }
+        public NightShort night_short { get; set; }
     }
 
     public class Province
     {
         public int id { get; set; }
         public string name { get; set; }
-    }   
+    }    
 
     public class Tzinfo
     {
