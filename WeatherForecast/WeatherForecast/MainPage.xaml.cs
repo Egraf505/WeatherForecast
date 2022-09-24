@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Threading;
+using WeatherForecast.Core;
 
 namespace WeatherForecast
 {
     public partial class MainPage : ContentPage
     {
         CancellationTokenSource cts;
+
+        YandexForecast _yandexForecast;
 
         Location _location;
 
@@ -22,7 +25,13 @@ namespace WeatherForecast
 
             _location = Task.Run(() => GetCurrentLocation()).Result;
 
-            DisplayAlert("Успех", _location.Latitude + " " + _location.Longitude,"Ок");
+            _yandexForecast = new YandexForecast(_location);
+
+            if (_yandexForecast != null)
+            {
+                DegreesL.Text = _yandexForecast?.YandexAPI?.fact?.temp.ToString();
+            }
+            
         }
 
 

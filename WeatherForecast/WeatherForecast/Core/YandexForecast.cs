@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using WeatherForecast.Core.YandexApiCore;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Collections.Generic;
 
 namespace WeatherForecast.Core
 {
@@ -31,17 +34,31 @@ namespace WeatherForecast.Core
 
             using (HttpClient httpClient = new HttpClient())
             {
-                HttpRequestMessage httpRequest = new HttpRequestMessage();
-                httpRequest.Method = HttpMethod.Get;
-                httpRequest.RequestUri = new Uri($@"https://api.weather.yandex.ru/v2/forecast?lat={_location.Latitude}&lon={_location.Longitude}&lang=ru_RU&limit=7&hours=true&extra=true");
-                httpRequest.Headers.Add(_header, _key);
+                using (HttpRequestMessage httpRequest = new HttpRequestMessage())
+                {
 
-                httpResponse = await httpClient.SendAsync(httpRequest);
+                    httpRequest.Method = HttpMethod.Get;
+
+                    string url = "https://api.weather.yandex.ru/v2/forecast";
+                    var builder = new UriBuilder(url);
+                    builder.Query = $"lat="+_location.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "&lon=" + _location.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "&lang=ru_RU&limit=7&hours=true";     
+
+                    httpRequest.RequestUri = builder.Uri;                   
+
+                    httpRequest.Headers.Add(_header, _key);
+
+                    httpResponse = await httpClient.SendAsync(httpRequest);
+                }
             }
 
-            string json = await  httpResponse.Content.ReadAsStringAsync();
+            if (httpResponse != null && httpResponse.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string json = await httpResponse.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<YandexAPI>(json);            
+                return JsonConvert.DeserializeObject<YandexAPI>(json);
+            }           
+
+            return null;
         }
     }
 }
