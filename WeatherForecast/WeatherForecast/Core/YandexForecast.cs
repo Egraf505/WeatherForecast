@@ -41,7 +41,7 @@ namespace WeatherForecast.Core
 
                     string url = "https://api.weather.yandex.ru/v2/forecast";
                     var builder = new UriBuilder(url);
-                    builder.Query = $"lat="+_location.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "&lon=" + _location.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "&lang=ru_RU&limit=7&hours=true";     
+                    builder.Query = $"lat="+_location.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "&lon=" + _location.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "&lang=ru_RU&limit=7&hours=true&extra=true";     
 
                     httpRequest.RequestUri = builder.Uri;                   
 
