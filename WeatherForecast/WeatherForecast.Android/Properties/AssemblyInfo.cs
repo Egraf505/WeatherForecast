@@ -37,5 +37,3 @@ using Xamarin.Forms;
 [assembly: UsesFeature("android.hardware.location.gps", Required = false)]
 [assembly: UsesFeature("android.hardware.location.network", Required = false)]
 
-// Font
-[assembly: ExportFont("Montserrat-Light.ttf")]

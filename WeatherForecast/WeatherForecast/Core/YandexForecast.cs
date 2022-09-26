@@ -11,10 +11,7 @@ using System.Collections.Generic;
 namespace WeatherForecast.Core
 {
     internal class YandexForecast
-    {
-        readonly YandexAPI _yandexAPI;
-        public YandexAPI YandexAPI { get { return _yandexAPI; } }
-
+    {       
         Location _location;
 
         private const string _key = "26317ec5-5ae0-4eb1-87c3-da2e32439ef2";
@@ -23,12 +20,10 @@ namespace WeatherForecast.Core
 
         public YandexForecast(Location location)
         {
-            _location = location;
-
-            _yandexAPI = Task.Run(() => GetYandexAPI()).Result;
+            _location = location;         
         }
 
-        private async Task<YandexAPI> GetYandexAPI()
+        public async Task<YandexAPI> GetYandexAPI()
         {
             HttpResponseMessage httpResponse;
 
@@ -56,7 +51,7 @@ namespace WeatherForecast.Core
                 string json = await httpResponse.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<YandexAPI>(json);
-            }           
+            }
 
             return null;
         }

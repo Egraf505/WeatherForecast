@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Threading;
 using WeatherForecast.Core;
+using WeatherForecast.Core.YandexApiCore;
 
 namespace WeatherForecast
 {
@@ -15,23 +16,13 @@ namespace WeatherForecast
     {
         CancellationTokenSource cts;
 
-        YandexForecast _yandexForecast;
+        YandexAPI _yandexAPI;
 
         Location _location;
 
         public MainPage()
-        {            
-            InitializeComponent();
-
-            _location = Task.Run(() => GetCurrentLocation()).Result;
-
-            _yandexForecast = new YandexForecast(_location);
-
-            if (_yandexForecast != null)
-            {
-                DegreesL.Text = _yandexForecast?.YandexAPI?.fact?.temp.ToString();
-            }
-            
+        {
+            InitializeComponent();            
         }
 
 
@@ -41,19 +32,19 @@ namespace WeatherForecast
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 cts = new CancellationTokenSource();
-                var location = await Geolocation.GetLocationAsync(request, cts.Token);
+                Location location = await Geolocation.GetLocationAsync(request, cts.Token);
 
                 if (location != null)
                 {
                     return location;
                 }
 
-                return null;
+                return await Geolocation.GetLastKnownLocationAsync(); ;
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "Ok");
-                return null;
+                return await Geolocation.GetLastKnownLocationAsync(); ;
             }
         }
 
@@ -62,6 +53,37 @@ namespace WeatherForecast
             if(cts != null && !cts.IsCancellationRequested)
                 cts.Cancel();
             base.OnDisappearing();
+        }
+
+        private async void ContentPage_Appearing(object sender, EventArgs e)
+        {
+            try
+            {
+                _location = await GetCurrentLocation();
+
+                YandexForecast yandexForecast = new YandexForecast(_location);
+
+                _yandexAPI = await yandexForecast.GetYandexAPI();
+
+                if (_yandexAPI != null)
+                {
+                    ContentpPlacement(_yandexAPI);
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка",ex.Message,"Ок");                
+            }
+            
+        }
+
+        private void ContentpPlacement(YandexAPI yandexAPI)
+        {
+            CityL.Text = _yandexAPI.geo_object.locality.name;
+
+            DegreesL.Text = "+ " + _yandexAPI?.fact?.temp.ToString();
+
+            WeatherLikeL.Text = "Ощущается как + " + _yandexAPI.fact.feels_like.ToString();
         }
     }
 }
