@@ -9,6 +9,8 @@ using Xamarin.Essentials;
 using System.Threading;
 using WeatherForecast.Core;
 using WeatherForecast.Core.YandexApiCore;
+using System.Net.Http;
+using System.IO;
 
 namespace WeatherForecast
 {
@@ -77,13 +79,26 @@ namespace WeatherForecast
             
         }
 
-        private void ContentpPlacement(YandexAPI yandexAPI)
+        private async void ContentpPlacement(YandexAPI yandexAPI)
         {
             CityL.Text = _yandexAPI.geo_object.locality.name;
+
+            WeatherImage.Source = await GetSVGIcon(_yandexAPI.fact.icon);
 
             DegreesL.Text = "+ " + _yandexAPI?.fact?.temp.ToString();
 
             WeatherLikeL.Text = "Ощущается как + " + _yandexAPI.fact.feels_like.ToString();
+        }
+
+        private async Task<ImageSource> GetSVGIcon(string icon)
+        {
+            ConveterImageSourceForUrl conveter = new ConveterImageSourceForUrl();
+
+            byte[] image = await conveter.GetByteArrayFromApi(icon);
+
+            MemoryStream memoryStream = new MemoryStream(image);
+
+            return ImageSource.FromStream(() => memoryStream);
         }
     }
 }

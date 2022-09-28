@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherForecast.UserControls.WeatherFoeHourControl">
+  <ContentView.Content>
+        <Frame BackgroundColor="#112D4E" CornerRadius="4" HeightRequest="50" WidthRequest="30">
+            <StackLayout Orientation="Vertical">
+                <Label x:Name="HourTimeL" 
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"
+                       Text="19:00" TextColor="#FFFFFF"
+                       FontSize="10" FontFamily="Montserrat"/>
+                
+                <Image x:Name="HourImage"/>
+                
+                <Label x:Name="HourTempL" 
+                       HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"
+                       Text="+11" TextColor="#FFFFFF"
+                       FontSize="11" FontFamily="Montserrat"/>
+            </StackLayout>
+        </Frame>
+  </ContentView.Content>
+</ContentView>

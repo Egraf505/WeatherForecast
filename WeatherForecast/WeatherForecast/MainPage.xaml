@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherForecast.MainPage"
-             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:usercontrols="clr-namespace:WeatherForecast.UserControls"
              Appearing="ContentPage_Appearing">
 
     <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
@@ -11,21 +11,31 @@
                 <StackLayout Orientation="Vertical">
                     
                     <!--Город-->
-                    <Label x:Name="CityL" TextColor="#F9F7F7" FontSize="24" FontFamily="Montserrat-Light" HorizontalOptions="CenterAndExpand"/>
+                    <Label x:Name="CityL" TextColor="#F9F7F7" FontSize="24" FontFamily="Montserrat" HorizontalOptions="CenterAndExpand"/>
                     
                     <!--Температура погоды и картинка погоды-->
                     <StackLayout Orientation="Horizontal" Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
-                        <Label x:Name="DegreesL" Text="+10" TextColor="#F9F7F7" FontSize="50" FontFamily="Montserrat-Light"/>
-                        <Image/>
+                        <Label x:Name="DegreesL" TextColor="#F9F7F7" FontSize="50" FontFamily="Montserrat"/>
+                        <Image x:Name="WeatherImage" HeightRequest="40" WidthRequest="40"/>
                     </StackLayout>
                     
                     <!--Ощущется как-->
-                    <Label x:Name="WeatherLikeL" FontSize="14" FontFamily="Montserrat-Light" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+                    <Label x:Name="WeatherLikeL" FontSize="14" FontFamily="Montserrat" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
                     
                     <!--Почасовая погода-->
-                    <ScrollView Orientation="Horizontal">
+                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
                         <StackLayout Orientation="Horizontal" x:Name="WeatherHoursStack" >
-
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            <usercontrols:WeatherFoeHourControl/>
+                            
                         </StackLayout>
                     </ScrollView>
                     
@@ -35,7 +45,7 @@
             <yummy:PancakeView Padding="24" CornerRadius="10 10 0 0" BackgroundColor="#3F72AF" VerticalOptions="FillAndExpand">
                 
                 <!--Прогноз на 7 дней-->
-                <Label Text="Прогноз на 7 дней" TextColor="#F9F7F7" FontSize="20" FontFamily="Montserrat-Light" />
+                <Label Text="Прогноз на 7 дней" TextColor="#F9F7F7" FontSize="20" FontFamily="Montserrat" />
             </yummy:PancakeView>
 
         </StackLayout>
