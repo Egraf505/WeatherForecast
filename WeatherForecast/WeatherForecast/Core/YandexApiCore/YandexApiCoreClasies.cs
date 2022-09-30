@@ -133,7 +133,7 @@ namespace WeatherForecast.Core.YandexApiCore
         public int feels_like { get; set; }
         public string icon { get; set; }
         public string condition { get; set; }
-        public int cloudness { get; set; }
+        public double cloudness { get; set; }
         public int prec_type { get; set; }
         public int prec_prob { get; set; }
         public double prec_strength { get; set; }

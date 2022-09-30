@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WeatherForecast.UserControls.WeatherFoeHourControl">
+             x:Class="WeatherForecast.UserControls.WeatherForHourControl"
+             xmlns:svg ="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
+    
   <ContentView.Content>
-        <Frame BackgroundColor="#112D4E" CornerRadius="4" HeightRequest="50" WidthRequest="30">
+        <Frame BackgroundColor="#112D4E" CornerRadius="6" HeightRequest="65" WidthRequest="30">
             <StackLayout Orientation="Vertical">
                 <Label x:Name="HourTimeL" 
                        HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"
                        Text="19:00" TextColor="#FFFFFF"
                        FontSize="10" FontFamily="Montserrat"/>
                 
-                <Image x:Name="HourImage"/>
+                <svg:SvgCachedImage x:Name="HourImage"/>
                 
                 <Label x:Name="HourTempL" 
                        HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"

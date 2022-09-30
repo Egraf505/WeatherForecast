@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherForecast.MainPage"
              xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:usercontrols="clr-namespace:WeatherForecast.UserControls"
+             xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              Appearing="ContentPage_Appearing">
 
     <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
@@ -16,25 +17,17 @@
                     <!--Температура погоды и картинка погоды-->
                     <StackLayout Orientation="Horizontal" Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
                         <Label x:Name="DegreesL" TextColor="#F9F7F7" FontSize="50" FontFamily="Montserrat"/>
-                        <Image x:Name="WeatherImage" HeightRequest="40" WidthRequest="40"/>
+
+                        <svg:SvgCachedImage x:Name="WeatherImage"/>
+
                     </StackLayout>
-                    
+
                     <!--Ощущется как-->
                     <Label x:Name="WeatherLikeL" FontSize="14" FontFamily="Montserrat" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
                     
                     <!--Почасовая погода-->
                     <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                        <StackLayout Orientation="Horizontal" x:Name="WeatherHoursStack" >
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
-                            <usercontrols:WeatherFoeHourControl/>
+                        <StackLayout Orientation="Horizontal" x:Name="WeatherHoursStack" Spacing="10">
                             
                         </StackLayout>
                     </ScrollView>
