@@ -92,12 +92,27 @@ namespace WeatherForecast
             WeatherLikeL.Text = "Ощущается как + " + yandexAPI.fact.feels_like.ToString();
 
             Forecast forecast = yandexAPI.forecasts.First();
+
+            CityL.Text += " " + forecast.date.ToString();
            
             WeatherHoursStack.Children.Clear();
 
             foreach (var hour in forecast.hours)
-            {               
-                WeatherHoursStack.Children.Add(new WeatherForHourControl(hour.hour, GetSVGIcon(hour.icon), hour.temp));                
+            {   
+                if(int.Parse(hour.hour) >= int.Parse(DateTime.Now.Hour.ToString()))
+                    WeatherHoursStack.Children.Add(new WeatherForHourControl(hour.hour, GetSVGIcon(hour.icon), hour.temp));               
+            }
+
+            if (WeatherHoursStack.Children.Count < 24)
+            {
+                List<Hour> forecastNextHours = yandexAPI.forecasts.First(forec => forec.date_ts != forecast.date_ts).hours;
+
+                int j = 0;
+                for (int i = WeatherHoursStack.Children.Count; i < 24; i++)
+                {
+                    WeatherHoursStack.Children.Add(new WeatherForHourControl(forecastNextHours[j].hour, GetSVGIcon(forecastNextHours[j].icon), forecastNextHours[j].temp));
+                    j++;
+                }
             }
         }
 

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WeatherForecast.UserControls.WeatherForDayControl"
+             xmlns:svg ="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
+  <ContentView.Content>
+        <Frame Background="#112D4E" CornerRadius="5" HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Vertical">
+
+                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                    <Label x:Name="DateOfDayL" FontSize="14" FontFamily="Montserrat" TextColor="#FFFFFF"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                    <svg:SvgCachedImage x:Name="DayOfIconimage"/>
+                    <Label x:Name="DayOfTemp" FontSize="14" FontFamily="Montserrat" TextColor="#FFFFFF"/>
+                    <Label x:Name="NightOfTemp" FontSize="14" FontFamily="Montserrat" TextColor="#C7C7C7"/>
+                </StackLayout>
+                
+            </StackLayout>
+        </Frame>
+  </ContentView.Content>
+</ContentView>

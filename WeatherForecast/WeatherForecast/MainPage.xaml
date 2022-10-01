@@ -36,9 +36,15 @@
             </yummy:PancakeView>
 
             <yummy:PancakeView Padding="24" CornerRadius="10 10 0 0" BackgroundColor="#3F72AF" VerticalOptions="FillAndExpand">
-                
-                <!--Прогноз на 7 дней-->
-                <Label Text="Прогноз на 7 дней" TextColor="#F9F7F7" FontSize="20" FontFamily="Montserrat" />
+
+                <StackLayout>
+                    <!--Прогноз на 7 дней-->
+                    <Label Text="Прогноз на 7 дней" TextColor="#F9F7F7" FontSize="20" FontFamily="Montserrat" />
+
+                    <StackLayout x:Name="DayOfWeekStack">
+                        <usercontrols:WeatherForDayControl/>
+                    </StackLayout>
+                </StackLayout>
             </yummy:PancakeView>
 
         </StackLayout>
