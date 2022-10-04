@@ -11,10 +11,19 @@ namespace WeatherForecast.UserControls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WeatherForDayControl : ContentView
-    {
-        public WeatherForDayControl()
+    {        
+
+        public WeatherForDayControl(string Date, ImageSource icon, int tempD, int tempN)
         {
             InitializeComponent();
+
+            DateOfDayL.Text = Date;
+
+            DayOfIconimage.Source = icon;
+
+            DayOfTemp.Text = "+ " + tempD.ToString();
+
+            NightOfTemp.Text = "+ " + tempN.ToString();
         }
     }
 }

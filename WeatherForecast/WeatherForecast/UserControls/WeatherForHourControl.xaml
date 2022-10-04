@@ -5,14 +5,14 @@
              xmlns:svg ="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
     
   <ContentView.Content>
-        <Frame BackgroundColor="#112D4E" CornerRadius="6" HeightRequest="65" WidthRequest="30">
+        <Frame BackgroundColor="#112D4E" CornerRadius="10" HeightRequest="65" WidthRequest="30">
             <StackLayout Orientation="Vertical">
                 <Label x:Name="HourTimeL" 
                        HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand"
                        Text="19:00" TextColor="#FFFFFF"
                        FontSize="10" FontFamily="Montserrat"/>
                 
-                <svg:SvgCachedImage x:Name="HourImage"/>
+                <svg:SvgCachedImage x:Name="HourImage" HeightRequest="24" WidthRequest="24"/>
                 
                 <Label x:Name="HourTempL" 
                        HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"

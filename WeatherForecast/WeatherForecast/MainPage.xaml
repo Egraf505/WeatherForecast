@@ -6,48 +6,51 @@
              xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              Appearing="ContentPage_Appearing">
 
-    <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
-        <StackLayout Background="#DBE2EF">
-            <yummy:PancakeView BackgroundColor="#3F72AF" Padding="24" CornerRadius="0 0 10 10">
-                <StackLayout Orientation="Vertical">
+    <RefreshView x:Name="RefreshForecast">
+        <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
+            <StackLayout Background="#DBE2EF">
+                <yummy:PancakeView BackgroundColor="#3F72AF" Padding="24" CornerRadius="0 0 10 10">
+                    <StackLayout Orientation="Vertical">
                     
-                    <!--Город-->
-                    <Label x:Name="CityL" TextColor="#F9F7F7" FontSize="24" FontFamily="Montserrat" HorizontalOptions="CenterAndExpand"/>
+                        <!--Город-->
+                        <Label x:Name="CityL" TextColor="#F9F7F7" FontSize="24" FontFamily="Montserrat" HorizontalOptions="CenterAndExpand"/>
                     
-                    <!--Температура погоды и картинка погоды-->
-                    <StackLayout Orientation="Horizontal" Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
-                        <Label x:Name="DegreesL" TextColor="#F9F7F7" FontSize="50" FontFamily="Montserrat"/>
+                        <!--Температура погоды и картинка погоды-->
+                        <StackLayout Orientation="Horizontal" Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                            <Label x:Name="DegreesL" TextColor="#F9F7F7" FontSize="50" FontFamily="Montserrat"/>
 
-                        <svg:SvgCachedImage x:Name="WeatherImage"/>
+                            <svg:SvgCachedImage x:Name="WeatherImage"/>
 
-                    </StackLayout>
-
-                    <!--Ощущется как-->
-                    <Label x:Name="WeatherLikeL" FontSize="14" FontFamily="Montserrat" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
-                    
-                    <!--Почасовая погода-->
-                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                        <StackLayout Orientation="Horizontal" x:Name="WeatherHoursStack" Spacing="10">
-                            
                         </StackLayout>
-                    </ScrollView>
+
+                        <!--Ощущется как-->
+                        <Label x:Name="WeatherLikeL" FontSize="14" FontFamily="Montserrat" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
                     
-                </StackLayout>
-            </yummy:PancakeView>
-
-            <yummy:PancakeView Padding="24" CornerRadius="10 10 0 0" BackgroundColor="#3F72AF" VerticalOptions="FillAndExpand">
-
-                <StackLayout>
-                    <!--Прогноз на 7 дней-->
-                    <Label Text="Прогноз на 7 дней" TextColor="#F9F7F7" FontSize="20" FontFamily="Montserrat" />
-
-                    <StackLayout x:Name="DayOfWeekStack">
-                        <usercontrols:WeatherForDayControl/>
+                        <!--Почасовая погода-->
+                        <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                            <StackLayout Orientation="Horizontal" x:Name="WeatherHoursStack" Spacing="10">
+                            
+                            </StackLayout>
+                        </ScrollView>
+                    
                     </StackLayout>
-                </StackLayout>
-            </yummy:PancakeView>
+                </yummy:PancakeView>
 
-        </StackLayout>
-    </ScrollView>
+                <yummy:PancakeView Padding="24" CornerRadius="10 10 0 0" BackgroundColor="#3F72AF" VerticalOptions="FillAndExpand">
+
+                    <StackLayout>
+                        <!--Прогноз на 7 дней-->
+                        <Label Text="Прогноз на 7 дней" TextColor="#F9F7F7" FontSize="20" FontFamily="Montserrat" />
+
+                        <StackLayout x:Name="DayOfWeekStack" VerticalOptions="StartAndExpand">
+                        
+                        </StackLayout>
+                    </StackLayout>
+                </yummy:PancakeView>
+
+            </StackLayout>
+        </ScrollView>
+
+    </RefreshView>
 
 </ContentPage>

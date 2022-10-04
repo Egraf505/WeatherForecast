@@ -11,6 +11,7 @@ using WeatherForecast.Core;
 using WeatherForecast.Core.YandexApiCore;
 using FFImageLoading.Svg.Forms;
 using WeatherForecast.UserControls;
+using System.Windows.Input;
 
 namespace WeatherForecast
 {
@@ -25,8 +26,15 @@ namespace WeatherForecast
         public MainPage()
         {
             InitializeComponent();
-        }
 
+            RefreshForecast.IsRefreshing = true;
+
+            RefreshForecast.Command = new Command(async () =>
+            {
+                await ContentLoading();
+                RefreshForecast.IsRefreshing = false;
+            });
+        }      
 
         async Task<Location> GetCurrentLocation()
         {
@@ -59,6 +67,11 @@ namespace WeatherForecast
 
         private async void ContentPage_Appearing(object sender, EventArgs e)
         {
+            await ContentLoading();   
+        }
+
+        private async Task ContentLoading()
+        {
             try
             {
                 _location = await GetCurrentLocation();
@@ -71,49 +84,83 @@ namespace WeatherForecast
                 {
                     ContentpPlacement(_yandexAPI);
                 }
+
+                RefreshForecast.IsRefreshing = false;
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Ошибка",ex.Message,"Ок");                
+                await DisplayAlert("Ошибка", ex.Message, "Ок");
             }
-            
         }
 
-        private void ContentpPlacement(YandexAPI yandexAPI)
+        private async void ContentpPlacement(YandexAPI yandexAPI)
         {
-            CityL.Text = yandexAPI.geo_object.locality.name;
+            // Город и дата
+            Forecast forecast = yandexAPI.forecasts.First();
+            CityL.Text = yandexAPI.geo_object.locality.name + " " + forecast.date.ToString();
 
+            // Иконка
             ImageSource imageSource = GetSVGIcon(yandexAPI.fact.icon);
-
             WeatherImage.Source = imageSource;           
 
+            // Температура
             DegreesL.Text = "+ " + yandexAPI?.fact?.temp.ToString();
 
+            // Температура ощущается
             WeatherLikeL.Text = "Ощущается как + " + yandexAPI.fact.feels_like.ToString();
+
+            // Вывод почасовой погоды
+            await GetHourForDay(yandexAPI, WeatherHoursStack.Children);
+
+            // Вывод прогноза на 7 дней
+            await GetForecastForDay(yandexAPI.forecasts, DayOfWeekStack.Children);
+        }
+
+        private Task GetHourForDay(YandexAPI yandexAPI, IList<View> children)
+        {             
+            if (children == null || yandexAPI == null)
+                return Task.CompletedTask;
+
+            children.Clear();
 
             Forecast forecast = yandexAPI.forecasts.First();
 
-            CityL.Text += " " + forecast.date.ToString();
-           
-            WeatherHoursStack.Children.Clear();
+            List<Hour> hours = forecast.hours.Where(x => int.Parse(x.hour) >= DateTime.Now.Hour).ToList();
 
-            foreach (var hour in forecast.hours)
-            {   
-                if(int.Parse(hour.hour) >= int.Parse(DateTime.Now.Hour.ToString()))
-                    WeatherHoursStack.Children.Add(new WeatherForHourControl(hour.hour, GetSVGIcon(hour.icon), hour.temp));               
+            foreach (var hour in hours)
+            {                
+                    children.Add(new WeatherForHourControl(hour.hour, GetSVGIcon(hour.icon), hour.temp));
             }
 
-            if (WeatherHoursStack.Children.Count < 24)
+            if (children.Count < 24)
             {
                 List<Hour> forecastNextHours = yandexAPI.forecasts.First(forec => forec.date_ts != forecast.date_ts).hours;
 
-                int j = 0;
-                for (int i = WeatherHoursStack.Children.Count; i < 24; i++)
+                foreach (var hour in forecastNextHours)
                 {
-                    WeatherHoursStack.Children.Add(new WeatherForHourControl(forecastNextHours[j].hour, GetSVGIcon(forecastNextHours[j].icon), forecastNextHours[j].temp));
-                    j++;
+                    if (children.Count == 24)                    
+                        break;
+
+                    children.Add(new WeatherForHourControl(hour.hour, GetSVGIcon(hour.icon), hour.temp));
                 }
             }
+
+            return Task.CompletedTask;
+        }
+
+        private Task GetForecastForDay(IList<Forecast> forecasts, IList<View> children)
+        {
+            if (forecasts == null || children == null)
+                return Task.CompletedTask;
+
+            children.Clear();
+
+            foreach (var forecast in forecasts)
+            {
+                children.Add(new WeatherForDayControl(forecast.date, GetSVGIcon(forecast.parts.day_short.icon), forecast.parts.day_short.temp, forecast.parts.night_short.temp));
+            }
+
+            return Task.CompletedTask;
         }
 
         private ImageSource GetSVGIcon(string icon)
