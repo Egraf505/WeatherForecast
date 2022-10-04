@@ -10,11 +10,13 @@
         <ScrollView Orientation="Vertical" VerticalScrollBarVisibility="Never">
             <StackLayout Background="#DBE2EF">
                 <yummy:PancakeView BackgroundColor="#3F72AF" Padding="24" CornerRadius="0 0 10 10">
-                    <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Vertical" Spacing="10">
                     
                         <!--Город-->
-                        <Label x:Name="CityL" TextColor="#F9F7F7" FontSize="24" FontFamily="Montserrat" HorizontalOptions="CenterAndExpand"/>
-                    
+                        <Label x:Name="CityL" TextColor="#F9F7F7" FontSize="26" FontFamily="Montserrat" HorizontalOptions="CenterAndExpand"/>
+
+                        <Label x:Name="DateL" TextColor="#F9F7F7" FontSize="16" FontFamily="Montserrat" HorizontalOptions="CenterAndExpand"/>
+
                         <!--Температура погоды и картинка погоды-->
                         <StackLayout Orientation="Horizontal" Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
                             <Label x:Name="DegreesL" TextColor="#F9F7F7" FontSize="50" FontFamily="Montserrat"/>
@@ -24,7 +26,7 @@
                         </StackLayout>
 
                         <!--Ощущется как-->
-                        <Label x:Name="WeatherLikeL" FontSize="14" FontFamily="Montserrat" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
+                        <Label x:Name="WeatherLikeL" FontSize="15" FontFamily="Montserrat" TextColor="#F9F7F7"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"/>
                     
                         <!--Почасовая погода-->
                         <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">

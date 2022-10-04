@@ -95,9 +95,12 @@ namespace WeatherForecast
 
         private async void ContentpPlacement(YandexAPI yandexAPI)
         {
+
             // Город и дата
             Forecast forecast = yandexAPI.forecasts.First();
-            CityL.Text = yandexAPI.geo_object.locality.name + " " + forecast.date.ToString();
+            DateTime dateOfForecast = GetDateForString(forecast.date);
+            CityL.Text = yandexAPI.geo_object.locality.name + " ";
+            DateL.Text = dateOfForecast.ToString("dd") + " " + dateOfForecast.ToString("MMMM");
 
             // Иконка
             ImageSource imageSource = GetSVGIcon(yandexAPI.fact.icon);
@@ -148,6 +151,20 @@ namespace WeatherForecast
             return Task.CompletedTask;
         }
 
+        private DateTime GetDateForString(string date)
+        {
+            // Format dateStr 0000-00-00
+
+            DateTime result;
+
+            if(DateTime.TryParse(date,out result))
+            {
+                return result;
+            }
+
+            return DateTime.Now;
+        }
+
         private Task GetForecastForDay(IList<Forecast> forecasts, IList<View> children)
         {
             if (forecasts == null || children == null)
@@ -157,7 +174,8 @@ namespace WeatherForecast
 
             foreach (var forecast in forecasts)
             {
-                children.Add(new WeatherForDayControl(forecast.date, GetSVGIcon(forecast.parts.day_short.icon), forecast.parts.day_short.temp, forecast.parts.night_short.temp));
+                DateTime date = GetDateForString(forecast.date);
+                children.Add(new WeatherForDayControl(date.ToString("dd") + " " + date.ToString("MMMM"), GetSVGIcon(forecast.parts.day_short.icon), forecast.parts.day_short.temp, forecast.parts.night_short.temp));
             }
 
             return Task.CompletedTask;
